@@ -42,6 +42,11 @@ jobs:
     needs: [build]
 
     steps:
+    
+     - name: Git clone my repository
+       uses: actions/checkout@v2
+       
+       
      - name: Configure my Heroku credentials
        run: |
             cat > ~/.netrc <<EOF
