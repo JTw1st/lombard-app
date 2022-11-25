@@ -28,7 +28,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
        
     - name: Create docker image from Dockerfile
-      run : docker build -t lombard-app-${{ github.sha }} .
+      run : docker build -t ver-${{ github.sha }} .
       
         
     - name: Push my docker image to docker hub
