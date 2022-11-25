@@ -43,8 +43,9 @@ jobs:
 
     steps:
     
-     - name: Git clone my repository
-       uses: actions/checkout@v2
+     - uses: actions/checkout@v3
+       with:
+          fetch-depth: 0
        
        
      - name: Configure my Heroku credentials
@@ -67,9 +68,6 @@ jobs:
        env:
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
           
-          
-     - name: Unshallow repository
-       run: git fetch --all --unshallow
           
      - name: Deploy to Heroku
        run: git push heroku master
