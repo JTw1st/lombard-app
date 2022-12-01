@@ -1,9 +1,18 @@
+import os
 import unittest
+
+from stat import S_IREAD, S_IRGRP, S_IROTH, S_IWUSR
 
 import utils as app
 
 
 class TestMyApp(unittest.TestCase):
+    def test_write_file(self):
+        os.chmod(app.FILENAME, S_IREAD|S_IRGRP|S_IROTH)
+        with self.assertRaises(PermissionError):
+            app.save_data({})
+        os.chmod(app.FILENAME, S_IWUSR|S_IREAD)
+
     def test_add_data(self):
         data = {"1": {"Title": "TV", "Price": "105$"}}
         new_data = ["Ring", "10$"]
@@ -14,6 +23,9 @@ class TestMyApp(unittest.TestCase):
                 "2": {"Title": "Ring", "Price": "10$"}
             }
         )
+        data = ""
+        with self.assertRaises(AttributeError):
+            app.add_data(new_data, data)
 
     def test_delete_data(self):
         data = {
