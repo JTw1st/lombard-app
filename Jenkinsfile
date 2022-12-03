@@ -28,7 +28,7 @@ pipeline {
                 sh('docker build -t lombard-app:ver-${env.GIT_COMMIT} .')
             }
         }
-        stage('Push my docker image to docker hub) {
+        stage('Push my docker image to docker hub') {
             steps {
                 sh """
                 'docker tag lombard-app:ver-${env.GIT_COMMIT} jtwist/lombard-app:ver-${env.GIT_COMMIT}'
