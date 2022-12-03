@@ -22,6 +22,16 @@ pipeline {
             steps {
                 sh('docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD')
             }
+        stage('Create docker image from Dockerfile') {
+            steps {
+                sh('docker build -t lombard-app:ver-${env.GIT_COMMIT} .')
+            }
+        }
+        stage('Push my docker image to docker hub) {
+            steps {
+                sh('docker tag lombard-app:ver-${env.GIT_COMMIT} jtwist/lombard-app:ver-${env.GIT_COMMIT}')
+                sh('docker push jtwist/lombard-app:ver-${env.GIT_COMMIT}')
+            }
         }
     }
 }
