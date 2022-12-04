@@ -46,5 +46,15 @@ pipeline {
                 '''
                    }
         }
+        stage('Add remote for Heroku') {
+            steps {
+                sh('heroku git:remote --app $HEROKU_APP_NAME')
+            }
+        }
+        stage('Push my app to Heroku') {
+            steps {
+                sh('git push heroku HEAD:master')
+            }
+        }
     }
 }
