@@ -30,11 +30,21 @@ pipeline {
         }
         stage('Push my docker image to docker hub') {
             steps {
-                sh"""
-                "docker tag lombard-app:ver-${env.GIT_COMMIT} jtwist/lombard-app:ver-${env.GIT_COMMIT}"
-                "docker push jtwist/lombard-app:ver-${env.GIT_COMMIT}"
-                """
+                sh("docker tag lombard-app:ver-${env.GIT_COMMIT} jtwist/lombard-app:ver-${env.GIT_COMMIT}")
+                sh("docker push jtwist/lombard-app:ver-${env.GIT_COMMIT}")
             }
+        }
+        stage('Setup .netrc for Heroku') {
+            steps {
+                sh'''
+                echo "machine api.heroku.com" >> ~/.netrc
+                echo "  login $HEROKU_EMAIL" >> ~/.netrc
+                echo "  password $HEROKU_API_KEY" >> ~/.netrc
+                echo "machine git.heroku.com" >> ~/.netrc
+                echo "  login $HEROKU_EMAIL" >> ~/.netrc
+                echo "  password $HEROKU_API_KEY" >> ~/.netrc
+                '''
+                   }
         }
     }
 }
