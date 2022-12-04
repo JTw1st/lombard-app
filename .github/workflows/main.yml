@@ -1,7 +1,7 @@
 name: CI-CD-Pipeline-to-Heroku #This is the name of our workflow displayer in "Actions" tab.
 
 on: #This line describes the condition on which our workflow will be executed.
-  push: #So, on "push" (if I or any other developer, working with this project, pushes an update to our branch, then this code will execute)
+  push: #So, on "push" (if I or any other developer, working with this project, pushes an update to our branch, then this code will execute).
     branches: #Specified which branch is used as a trigger. In our case - branch master.
       - master
 
